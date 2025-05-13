@@ -78,8 +78,6 @@ a.get(url) do |page|
 # --- End of print code ---
           
       ScraperWiki.save_sqlite(['council_reference'], record)
-    rescue Mechanize::ResponseCodeError => e
-      puts "Failed to fetch #{detail_url}: #{e.message}"
     end
   end
 end
