@@ -1,38 +1,3 @@
-#require 'scraperwiki'
-#require 'mechanize'
-
-#a = Mechanize.new
-
-#url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
-
-
-#a.get(url) do |page|
-#  page.search('.doc-list a').each do |a|
-#    unless a.at('img')
-#      # Long winded name of PDF
-#      name = a.inner_text.strip
-#      s = name.split(' - ').map(&:strip)
-#      # Skip over links that we don't know how to handle
-#      if s.count != 4
-#        puts "Unexpected form of PDF name. So, skipping: #{name}"
-#        next
-#      end
-
-      #record = {
-      #  'council_reference' => s[0],
-      #  'address' => s[1] + ", TAS",
-      #  'description' => s[2],
-      #  'on_notice_to' => Date.parse(s[3]).to_s,
-      #  'date_scraped' => Date.today.to_s,
-      #  'info_url' => (page.uri + a["href"]).to_s,
-      #  'comment_authority' => "City of Hobart",
-      #  'comment_email' => "representation@hobartcity.com.au"
-      #}
-
-#      ScraperWiki.save_sqlite(['council_reference'], record)
-#    end
-#  end
-#end
 # encoding: utf-8
 require 'scraperwiki'
 require 'mechanize'
@@ -53,6 +18,7 @@ a.get(url) do |page|
     detail_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
     
     begin
+      puts "Fetching details from: #{detail_url}"  # Debugging information
       detail_page = a.get(detail_url)
 
       description = detail_page.at('.toastui-editor-contents p[data-nodeid="32"]').text.strip
@@ -71,15 +37,16 @@ a.get(url) do |page|
 
       records << record
 
-# Print the first 5 records to the console for validation
-# --- Start of print code ---
-      records.first(5).each do |record|
-      puts record
-# --- End of print code ---
+      # Print the first 5 records to the console for validation
+      # --- Start of print code ---
+      if records.size <= 5
+        puts record
+      end
+      # --- End of print code ---
           
       ScraperWiki.save_sqlite(['council_reference'], record)
+    rescue Mechanize::ResponseCodeError => e
+      puts "Failed to fetch #{detail_url}: #{e.message}"
     end
   end
 end
-end
-
