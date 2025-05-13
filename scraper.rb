@@ -14,6 +14,9 @@ a.get(url) do |page|
     council_reference = row.at('.col-xs-4').text.strip
     id = row['id']
 
+    # Debugging information to check the extracted id
+    puts "Extracted ID: #{id}"
+
     # Fetch the detailed page for each advertisement
     detail_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
     
