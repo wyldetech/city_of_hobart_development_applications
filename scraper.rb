@@ -53,7 +53,7 @@ a.get(url) do |page|
       end
       # --- End of print code ---
           
-      ScraperWiki.save_sqlite(['council_reference'], record)
+      #ScraperWiki.save_sqlite(['council_reference'], record)
     rescue Mechanize::ResponseCodeError => e
       puts "Failed to fetch #{detail_url}: #{e.message}"
     end
