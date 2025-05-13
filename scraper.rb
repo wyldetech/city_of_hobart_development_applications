@@ -33,7 +33,6 @@
 #    end
 #  end
 #end
-
 # encoding: utf-8
 require 'scraperwiki'
 require 'mechanize'
@@ -41,6 +40,8 @@ require 'mechanize'
 a = Mechanize.new
 
 url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
+
+records = []
 
 a.get(url) do |page|
   page.search('.advertisement-result-row').each do |row|
@@ -68,9 +69,21 @@ a.get(url) do |page|
         'comment_email' => "representation@hobartcity.com.au"
       }
 
+      records << record
+
+# Print the first 5 records to the console for validation
+# --- Start of print code ---
+puts "First 5 records:"
+records.first(5).each do |record|
+  puts record
+end
+# --- End of print code ---
+          
       ScraperWiki.save_sqlite(['council_reference'], record)
     rescue Mechanize::ResponseCodeError => e
       puts "Failed to fetch #{detail_url}: #{e.message}"
     end
   end
 end
+
+
