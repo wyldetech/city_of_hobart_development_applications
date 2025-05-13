@@ -73,10 +73,8 @@ a.get(url) do |page|
 
 # Print the first 5 records to the console for validation
 # --- Start of print code ---
-puts "First 5 records:"
-records.first(5).each do |record|
-  puts record
-end
+      records.first(5).each do |record|
+      puts record
 # --- End of print code ---
           
       ScraperWiki.save_sqlite(['council_reference'], record)
