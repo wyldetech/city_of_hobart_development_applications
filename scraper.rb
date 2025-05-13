@@ -15,7 +15,13 @@ a.get(url) do |page|
     id = row['id']
 
     # Debugging information to check the extracted id
-    puts "Extracted ID: #{id}"
+    puts "Extracted ID: #{id.inspect}"
+
+    # Ensure the ID is not nil or empty
+    if id.nil? || id.empty?
+      puts "Skipping row due to missing ID"
+      next
+    end
 
     # Fetch the detailed page for each advertisement
     detail_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
