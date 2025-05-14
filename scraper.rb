@@ -1,22 +1,30 @@
 # encoding: utf-8
 require 'scraperwiki'
-require 'mechanize'
+require 'selenium-webdriver'
 
-a = Mechanize.new
+# Set up Selenium WebDriver
+options = Selenium::WebDriver::Chrome::Options.new
+options.add_argument('--headless') # Run in headless mode (no browser window)
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+
+driver = Selenium::WebDriver.for(:chrome, options: options)
 
 url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
 
 #records = []
+driver.navigate.to(url)
+sleep 10
+rows = driver.find_elements(css: '.row.advertisement-result-row')
 
-site = a.get(url)
-search = site.search('.row.advertisement-result-row')
-puts "#{search}"
-site.search('.row.advertisement-result-row').each do |row|
-  id = row['id']
-  next unless id
-  app_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
-  appl = a.get(app_url)
-  puts "#{id} #{app_url}"
+rows.each do |row|
+    # Extract the ID from the row's 'id' attribute
+    advertisement_id = row.attribute('id')
+    next unless advertisement_id
+
+    # Construct the detail page URL
+    detail_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{advertisement_id}"
+    puts "Fetching details for ID: #{advertisement_id} from #{detail_url}"
   
 end
   #record = {
