@@ -14,7 +14,7 @@ site.search('.advertisement-result-row').each do |row|
   next unless id
   app_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
   appl = a.get(app_url)
-  puts appl
+  puts appl.title
   
 end
   #record = {
