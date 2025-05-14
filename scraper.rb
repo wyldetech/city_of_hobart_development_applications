@@ -9,10 +9,11 @@ url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
 #records = []
 
 site = a.get(url)
-puts "#{url} loaded"
-
-
-      record = {
+site.search('.advertisement-result-row').each do |row|
+  appl = a.get("https://portal.planbuild.tas.gov.au/external/advertisement/#{row.id}")
+  puts appl.inspect    
+  
+  record = {
         'council_reference' => council_reference,
         'address' => address,
         'description' => description,
@@ -22,3 +23,4 @@ puts "#{url} loaded"
         'comment_authority' => "City of Hobart",
         'comment_email' => "representation@hobartcity.com.au"
       }
+
