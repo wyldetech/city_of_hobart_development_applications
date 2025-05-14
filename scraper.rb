@@ -9,13 +9,12 @@ url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
 #records = []
 
 site = a.get(url)
-site.search('.row advertisement-result-row').each do |row|
+site.search('.row.advertisement-result-row').each do |row|
   id = row['id']
-  puts "Fetching #{id}"
   next unless id
   app_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
   appl = a.get(app_url)
-  puts "#{app_url}"
+  puts "#{id} #{app_url}"
   
 end
   #record = {
