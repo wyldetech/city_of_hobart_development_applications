@@ -5,7 +5,7 @@ require 'mechanize'
 a = Mechanize.new
 
 url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
-
+puts "Fetching #{url}"
 #records = []
 
 site = a.get(url)
@@ -14,7 +14,7 @@ site.search('.row.advertisement-result-row').each do |row|
   next unless id
   app_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
   appl = a.get(app_url)
-  puts "#{id} #{app_url}"
+  puts "Fetching #{id} #{app_url}"
   
 end
   #record = {
