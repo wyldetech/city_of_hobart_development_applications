@@ -10,8 +10,11 @@ url = "https://portal.planbuild.tas.gov.au/external/advertisement/search"
 
 site = a.get(url)
 site.search('.advertisement-result-row').each do |row|
-  appl = a.get("https://portal.planbuild.tas.gov.au/external/advertisement/#{row.id}")
-  puts appl.inspect    
+  id = row['id']
+  next unless id
+  app_url = "https://portal.planbuild.tas.gov.au/external/advertisement/#{id}"
+  appl = a.get(app_url)
+  puts appl
   
 end
   #record = {
