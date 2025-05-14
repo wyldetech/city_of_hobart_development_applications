@@ -1,4 +1,8 @@
 # encoding: utf-8
+require 'bundler/setup'
+
+Bundler.require(:default)
+
 require 'scraperwiki'
 require 'selenium-webdriver'
 
