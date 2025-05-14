@@ -22,6 +22,3 @@ puts "#{url} loaded"
         'comment_authority' => "City of Hobart",
         'comment_email' => "representation@hobartcity.com.au"
       }
-
-  end
-
